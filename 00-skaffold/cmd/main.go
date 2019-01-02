@@ -1,14 +1,14 @@
 package main
 
 import (
-	"fmt"
-	"time"
 	"example/pkg"
+	"time"
 )
 
 func main() {
+	person := pkg.NewPerson("Kumbi")
 	for {
-		fmt.Println("this is fun!", pkg.SOME_CONST)
+		person.Speak()
 
 		time.Sleep(time.Second * 1)
 	}
