@@ -1,0 +1,26 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: ./client_js
+    volumes:
+    - ./client_js:/usr/src/app
+    - /usr/src/app/node_modules
+    ports:
+    - 3000:3000
+
+  backend:
+    build:
+      context: .
+    working_dir: /work
+    command: go run cmd/backend/main.go
+    volumes:
+      - ./:/work
+
+  grpc:
+    image: envoyproxy/envoy:latest
+    command: envoy -c /grpc-envoy.yaml
+    volumes:
+    - ./proxy.yml:/grpc-envoy.yaml
+    ports:
+      - 9000:9000
